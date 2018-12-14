@@ -20,17 +20,9 @@ public class Find_longest_word_in_dictionary {
         boolean finalValid = false;
 
         for (String word : words) {
-            firstCharFound = false;
             char[] chars = word.toCharArray();
-            while (lettersIndex < letters.length()) {
-                if (letters.charAt(lettersIndex) == chars[0]) {
-                    break;
-                } else {
-                    firstCharFound = true;
-                    lettersIndex++;
-                }
-            }
-            if (!firstCharFound) {
+            lettersIndex = indexOfFirstOccurrence(letters, word);
+            if (lettersIndex == -1) {
                 break;
             } else {
                 for (int i = 1; i < chars.length; i++) {
@@ -50,6 +42,27 @@ public class Find_longest_word_in_dictionary {
             }
             if (finalValid && result.length() < word.length()) {
                 result = word;
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Function that returns the index of the first occurrence of the first character of the word in the letters
+     * @param letters Sequence of the letters that could contain the character
+     * @param word Sequence that it's first character will be checked
+     * @return The index of first occurrence if found else returns -1
+     */
+    private int indexOfFirstOccurrence(String letters, String word) {
+        int lettersIndex = 0;
+        int result = -1;
+        while (lettersIndex < letters.length()) {
+            if (letters.charAt(lettersIndex) == word.charAt(0)) {
+                result = lettersIndex;
+                break;
+            } else {
+                lettersIndex++;
             }
         }
 
