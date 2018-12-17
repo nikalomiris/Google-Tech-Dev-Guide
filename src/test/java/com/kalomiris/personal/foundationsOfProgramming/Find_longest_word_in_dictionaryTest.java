@@ -16,6 +16,12 @@ public class Find_longest_word_in_dictionaryTest extends TestCase {
         words.add("bale");
         words.add("kangaroo");
         String s = "abppplee";
+
+        assertTrue(testedClass.isSubsequence(s, words.get(0)));
+        assertTrue(testedClass.isSubsequence(s, words.get(1)));
+        assertTrue(testedClass.isSubsequence(s, words.get(2)));
+        assertFalse(testedClass.isSubsequence(s, words.get(3)));
+        assertFalse(testedClass.isSubsequence(s, words.get(4)));
         assertEquals("apple", testedClass.findLongestWord(s, words));
     }
 

@@ -1,8 +1,6 @@
 package com.kalomiris.personal.foundationsOfProgramming;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * This class contains the solution of
@@ -13,59 +11,34 @@ public class Find_longest_word_in_dictionary {
 
     public String findLongestWord(String letters, List<String> words) {
 
+        Comparator comparator = new StringComparator("");
         String result = "";
-        int lettersIndex = 0;
-        boolean firstCharFound = false;
-        boolean stillValid = false;
-        boolean finalValid = false;
+
+        // Sort the list of words. That way we can return the first word that is a subsequence because it will be the longest.
+        Collections.sort(words, comparator);
 
         for (String word : words) {
-            char[] chars = word.toCharArray();
-            lettersIndex = indexOfFirstOccurrence(letters, word);
-            if (lettersIndex == -1) {
-                break;
-            } else {
-                for (int i = 1; i < chars.length; i++) {
-                    if (lettersIndex >= letters.length()) {
-                        break;
-                    }
-                    if (chars[i] != letters.charAt(lettersIndex)) {
-                        lettersIndex++;
-                        stillValid = false;
-                    } else if (chars[i] == letters.charAt(lettersIndex) && i == chars.length - 1) {
-                        finalValid = true;
-                    } else {
-                        lettersIndex++;
-                        stillValid = true;
-                    }
-                }
-            }
-            if (finalValid && result.length() < word.length()) {
-                result = word;
+            if (isSubsequence(letters, word)) {
+                return word;
             }
         }
 
-        return result;
+        return "Non of the words is a subsequence of the letters.";
     }
 
     /**
      * Function that returns the index of the first occurrence of the first character of the word in the letters
-     * @param letters Sequence of the letters that could contain the character
-     * @param word Sequence that it's first character will be checked
-     * @return The index of first occurrence if found else returns -1
+     * @param letters Sequence of the letters that could contain the word
+     * @param word Sequence that should exist as a subsequence
+     * @return if the word is susequence of letters. Not necessarily continuous but the order of the letters is important.
      */
-    private int indexOfFirstOccurrence(String letters, String word) {
-        int lettersIndex = 0;
-        int result = -1;
-        while (lettersIndex < letters.length()) {
-            if (letters.charAt(lettersIndex) == word.charAt(0)) {
-                result = lettersIndex;
-                break;
-            } else {
-                lettersIndex++;
+    protected boolean isSubsequence(String letters, String word) {
+        int wordIndex = 0;
+        for (int i = 0; i < letters.length(); i++) {
+            if (wordIndex < word.length() && letters.charAt(i) == word.charAt(wordIndex)) {
+                wordIndex++;
             }
         }
-
-        return result;
+        return wordIndex == word.length();
     }
 }
