@@ -6,7 +6,19 @@
   <artifactId>google-tech-dev-guide</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>google-tech-dev-guide</name>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <name>google-tech-dev-guide</name>
   <url>http://maven.apache.org</url>
 
   <dependencies>
