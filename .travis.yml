@@ -1,7 +1,4 @@
 language: java
-sudo: false # faster builds
-
-script: "mvn clean install site"
 
 before_install:
   - sudo apt-get install jq
@@ -9,3 +6,5 @@ before_install:
 
 after_success:
   - java -jar ~/codacy-coverage-reporter-assembly-latest.jar report -l Java -r target/site/cobertura/coverage.xml
+
+script: "mvn clean install site"
