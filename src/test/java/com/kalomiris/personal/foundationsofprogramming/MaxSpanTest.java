@@ -1,4 +1,4 @@
-package com.kalomiris.personal.foundationsOfProgramming;
+package com.kalomiris.personal.foundationsofprogramming;
 
 import junit.framework.TestCase;
 
