@@ -7,10 +7,10 @@ import java.util.Random;
 
 public class SortingAlgorithmsTest extends TestCase {
 
-    int[] input = new int[100000];
-    int[] sortedInput = new int[100000];
-    SortingAlgorithms sortingAlgorithms = new SortingAlgorithms();
-    Random rand = new Random();
+    private int[] input = new int[100000];
+    private int[] sortedInput = new int[100000];
+    private SortingAlgorithms sortingAlgorithms = new SortingAlgorithms();
+    private Random rand = new Random();
 
     private void initArrays(){
         for (int i = 0; i < input.length; i++) {

@@ -12,7 +12,6 @@ public class Find_longest_word_in_dictionary {
     public String findLongestWord(String letters, List<String> words) {
 
         Comparator comparator = new StringComparator("");
-        String result = "";
 
         // Sort the list of words. That way we can return the first word that is a subsequence because it will be the longest.
         Collections.sort(words, comparator);
