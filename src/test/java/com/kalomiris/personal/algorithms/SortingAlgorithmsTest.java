@@ -7,8 +7,8 @@ import java.util.Random;
 
 public class SortingAlgorithmsTest extends TestCase {
 
-    private int[] input = new int[100000];
-    private int[] sortedInput = new int[100000];
+    private int[] input = new int[10000000];
+    private int[] sortedInput = new int[10000000];
     private SortingAlgorithms sortingAlgorithms = new SortingAlgorithms();
     private Random rand = new Random();
 
@@ -18,6 +18,19 @@ public class SortingAlgorithmsTest extends TestCase {
         }
         sortedInput = input;
         Arrays.sort(sortedInput);
+    }
+
+    public void testMergeSort() throws Exception {
+
+        initArrays();
+        long startTime = System.currentTimeMillis();
+
+        // TODO Optimize it.
+        assertTrue(Arrays.equals(sortedInput, sortingAlgorithms.mergeSort(input)));
+
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
+        System.out.println("mergeSort sorted " + input.length + " numbers in " + elapsedTime + " miliseconds");
     }
 
     public void testInsertionSort() throws Exception {
@@ -32,15 +45,4 @@ public class SortingAlgorithmsTest extends TestCase {
         System.out.println("insertionSort sorted " + input.length + " numbers in " + elapsedTime + " miliseconds");
     }
 
-    public void testMergeSort() throws Exception {
-
-        initArrays();
-        long startTime = System.currentTimeMillis();
-
-        assertTrue(Arrays.equals(sortedInput, sortingAlgorithms.mergeSort(input, 0, input.length - 1)));
-
-        long stopTime = System.currentTimeMillis();
-        long elapsedTime = stopTime - startTime;
-        System.out.println("mergeSort sorted " + input.length + " numbers in " + elapsedTime + " miliseconds");
-    }
 }

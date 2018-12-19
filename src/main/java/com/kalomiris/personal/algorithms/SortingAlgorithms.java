@@ -2,6 +2,11 @@ package com.kalomiris.personal.algorithms;
 
 public class SortingAlgorithms {
 
+    private int[] numbers;
+    private int[] helper;
+
+    private int number;
+
     public int[] insertionSort(int[] input) {
 
         int key;
@@ -18,42 +23,54 @@ public class SortingAlgorithms {
         return input;
     }
 
-    public int[] mergeSort(int[] array, int low, int high){
-        if(low < high){
-            int middle = (low + high) / 2;
-            mergeSort(array, low, middle);
-            mergeSort(array, middle+1, high);
-            merge(array, low, middle, high);
-        }
+    public int[] mergeSort(int[] values) {
+        this.numbers = values;
+        number = values.length;
+        this.helper = new int[number];
+        sort(0, number - 1);
 
-        return array;
+        return numbers;
     }
 
-    private void merge(int[] array, int low, int middle, int high){
-        int[] helper = new int[array.length];
+    private void sort(int low, int high) {
+        if (low < high) {
+            int middle = low + (high - low) / 2;
+            sort(low, middle);
+            sort(middle + 1, high);
+            merge(low, middle, high);
+        }
+    }
+
+    private void merge(int low, int middle, int high) {
+
+        // Copy both parts into the helper array
         for (int i = low; i <= high; i++) {
-            helper[i] = array[i];
+            helper[i] = numbers[i];
         }
 
-        int helperLeft = low;
-        int helperRight = middle+1;
-        int current = low;
-
-        while (helperLeft <= middle && helperRight <=high) {
-            if(helper[helperLeft] <= helper[helperRight]){
-                array[current] = helper[helperLeft];
-                helperLeft++;
-
-            }else{
-                array[current] = helper[helperRight];
-                helperRight++;
+        int i = low;
+        int j = middle + 1;
+        int k = low;
+        // Copy the smallest values from either the left or the right side back
+        // to the original array
+        while (i <= middle && j <= high) {
+            if (helper[i] <= helper[j]) {
+                numbers[k] = helper[i];
+                i++;
+            } else {
+                numbers[k] = helper[j];
+                j++;
             }
-            current ++;
+            k++;
         }
+        // Copy the rest of the left side of the array into the target array
+        while (i <= middle) {
+            numbers[k] = helper[i];
+            k++;
+            i++;
+        }
+        // Since we are sorting in-place any leftover elements from the right side
+        // are already at the right position.
 
-        int remaining = middle - helperLeft;
-        for (int i = 0; i <= remaining; i++) {
-            array[current+i] = helper[helperLeft+ i];
-        }
     }
 }
