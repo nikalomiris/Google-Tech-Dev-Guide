@@ -2,12 +2,14 @@ package com.kalomiris.personal.algorithms;
 
 public class SortingAlgorithms {
 
+    // Variables used for merge mergesort
     private int[] numbers;
     private int[] helper;
-
     private int number;
 
     public int[] insertionSort(int[] input) {
+
+        long startTime = System.currentTimeMillis();
 
         int key;
         for (int i = 1; i < input.length; i++) {
@@ -20,6 +22,10 @@ public class SortingAlgorithms {
             input[j + 1] = key;
         }
 
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
+        System.out.println("insertionSort sorted " + input.length + " numbers in " + elapsedTime + " miliseconds");
+
         return input;
     }
 
@@ -27,16 +33,53 @@ public class SortingAlgorithms {
         this.numbers = values;
         number = values.length;
         this.helper = new int[number];
-        sort(0, number - 1);
+
+        long startTime = System.currentTimeMillis();
+
+        mergesort(0, number - 1);
+
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
+        System.out.println("mergeSort sorted " + values.length + " numbers in " + elapsedTime + " miliseconds");
 
         return numbers;
     }
 
-    private void sort(int low, int high) {
+    public int[] quickSort(int[] input, int low, int high) {
+        if (low < high) {
+            int p = partition(input, low, high);
+            quickSort(input, low, p - 1);
+            quickSort(input, p + 1, high);
+        }
+
+        return input;
+    }
+
+    private int partition(int[] input, int low, int high) {
+        int pivot = input[high];
+        int i = low;
+        for (int j = low; j < high; j++) {
+            if (input[j] < pivot) {
+                if (i != j) {
+                    int temp = input[i];
+                    input[i] = input[j];
+                    input[j] = temp;
+                }
+                i++;
+            }
+        }
+        int temp = input[i];
+        input[i] = input[high];
+        input[high] = temp;
+
+        return i;
+    }
+
+    private void mergesort(int low, int high) {
         if (low < high) {
             int middle = low + (high - low) / 2;
-            sort(low, middle);
-            sort(middle + 1, high);
+            mergesort(low, middle);
+            mergesort(middle + 1, high);
             merge(low, middle, high);
         }
     }
